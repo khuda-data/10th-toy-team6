@@ -1,0 +1,11 @@
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+*.pkl
+.venv/
+venv/
+data/raw/*
+!data/raw/.gitkeep
+_to_delete/
