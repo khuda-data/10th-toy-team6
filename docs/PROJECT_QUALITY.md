@@ -18,6 +18,8 @@ STEAM_API_KEY = "B1FC36C7D790B5F17DCD8E33F5C33DF2"
 3. ✅ `.env`를 `.gitignore`에 추가
 4. ⬜ git 히스토리에서 완전히 지우려면 `git filter-repo`나 BFG Repo-Cleaner가 필요 (팀 전체 재-clone 필요) — 이번엔 "재발급만, 히스토리는 그대로" 두는 쪽으로 결정. 필요해지면 팀원들과 시간 맞춰서 진행하세요.
 
+
+
 ## 폴더 구조가 혼란스러웠던 이유
 
 정리 전 구조:
@@ -43,47 +45,5 @@ STEAM_API_KEY = "B1FC36C7D790B5F17DCD8E33F5C33DF2"
 - **파일명 불일치**: 노트북은 `steam_user_games_merged.csv`를 읽는데 실제 데이터는 `steam_user_games_classified.csv` → 지금 상태로는 노트북이 아예 안 돌아감
 - `.gitignore`가 없음 → 캐시/중간산출물이 계속 커밋될 위험
 
-## 적용한 구조
-
-```
-10th-toy-team6/
-├── README.md                      # 프로젝트 개요, 실행 방법, 팀원
-├── requirements.txt
-├── .gitignore
-├── .env.example                   # STEAM_API_KEY= 형태로 키만 비워둔 예시
-├── data/
-│   ├── raw/                       # API로 긁어온 원본 (.gitkeep만 커밋, 실제 원본은 gitignore)
-│   └── processed/                 # 전처리 끝난 데이터 (기존 "전처리 끝난 데이터" 폴더)
-├── notebooks/
-│   ├── 01_data_collection.ipynb
-│   └── legacy/                    # 예전 "가중치 부여 + X.ipynb" 3개 (API 키/경로만 정리, 파일명은 영문으로)
-└── docs/
-    ├── 최종모델.md
-    └── PROJECT_QUALITY.md         # 이 문서
-```
-
-핵심은 **데이터 / 노트북 / 문서를 분리**하고, 원래 있던 파일들을 손대지 않은 채로(로직 변경 없이) 제자리를 찾아준 것입니다. 노트북 3개가 사실상 복붙 코드라 공통 모듈로 합치면 좋겠지만, 그건 로직을 새로 작성하는 일이라 이번 정리 범위에서는 제외했습니다.
-
-## 적용한 .gitignore
-
-```gitignore
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
-.env
-.DS_Store
-*.pkl
-.venv/
-venv/
-data/raw/*
-!data/raw/.gitkeep
-```
 
 `.ipynb_checkpoints/`는 git 추적에서 제거했습니다 (`git rm -r --cached`). `data/processed/`의 산출물은 팀 공유용이라 그대로 커밋했지만, 원본 대용량 raw 데이터가 생기면 git이 아니라 별도 공유 방식(Drive 등)을 쓰는 걸 권합니다.
-
-## 그 외 적용한 개선
-
-- `최종모델.md`를 `docs/`로 이동했습니다.
-- 노트북 파일명을 `weighted_lightgbm.ipynb`처럼 영문 스네이크 케이스로 바꿨습니다 (공백/`+` 제거).
-- 루트에 README.md를 추가해서 구조를 안내합니다.
-- 남은 일: 위 "지금 바로 처리해야 하는 것"의 API 키 재발급은 코드로 할 수 없는 부분이라 직접 처리해주셔야 합니다.

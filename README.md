@@ -11,7 +11,7 @@
 ├── .gitignore
 ├── .env.example       # STEAM_API_KEY= 형태로 키만 비워둔 예시. 복사해서 .env로 사용
 ├── data/               # 데이터
-│   ├── raw/            # Steam API로 긁어온 원본 (git에는 커밋하지 않음)
+│   ├── raw/            # Steam API로 긁어온 원본
 │   └── processed/       # 전처리 끝난 데이터
 │       ├── steam_top500_games_classified.csv
 │       ├── steam_user_games_classified.csv
