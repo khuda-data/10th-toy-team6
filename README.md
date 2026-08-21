@@ -9,23 +9,45 @@
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
-├── .env.example            # STEAM_API_KEY= 형태로 키만 비워둔 예시. 복사해서 .env로 사용
-├── data/
-│   ├── raw/                 # Steam API로 긁어온 원본 (git에는 커밋하지 않음)
-│   └── processed/           # 전처리 끝난 데이터 (기존 "전처리 끝난 데이터" 폴더)
+├── .env.example       # STEAM_API_KEY= 형태로 키만 비워둔 예시. 복사해서 .env로 사용
+├── data/               # 데이터
+│   ├── raw/            # Steam API로 긁어온 원본 (git에는 커밋하지 않음)
+│   └── processed/       # 전처리 끝난 데이터
 │       ├── steam_top500_games_classified.csv
 │       ├── steam_user_games_classified.csv
 │       └── user_genre_weights.csv
-├── notebooks/
+├── notebooks/          # 실험/분석용 Jupyter Notebook
 │   ├── 01_data_collection.ipynb
-│   └── legacy/               # 가중치 부여 기반 추천 실험 노트북
+│   └── legacy/          # 가중치 부여 기반 추천 실험 노트북
 │       ├── weighted_lightgbm.ipynb
 │       ├── weighted_random_forest.ipynb
 │       └── weighted_xgboost.ipynb
-└── docs/
-    ├── 최종모델.md                     # 추천 시스템 설계 문서
-    └── PROJECT_QUALITY.md              # 프로젝트 구조/보안 이슈 점검 및 개선 이력
+├── src/                # 재사용할 실제 Python 코드
+├── results/            # 실행 결과
+└── docs/               # 문서
+    ├── 최종모델.md       # 추천 시스템 설계 문서
+    └── PROJECT_QUALITY.md  # 프로젝트 구조/보안 이슈 점검 및 개선 이력
 ```
+
+## 파일 흐름
+
+```
+data/raw            (Steam API 원본 수집)
+   │
+   ▼
+data/processed       (전처리 끝난 데이터)
+   │
+   ▼
+notebooks/            (여기서 자유롭게 탐색/실험)
+   │  ── 검증된 로직만 뽑아서 ──▶ src/  (재사용 가능한 Python 모듈로 정리)
+   ▼
+results/              (노트북·src 실행 결과: 추천 목록, 성능 비교표, 그래프 등 저장)
+   │
+   ▼
+docs/                 (실험 결과와 설계 내용을 문서로 정리)
+```
+
+즉 `data`에서 시작해서 `notebooks`에서 실험하고, 반복해서 쓸 코드는 `src`로 옮기고, 실행 결과는 `results`에 쌓고, 최종적으로 `docs`에 정리하는 흐름입니다.
 
 ## 실행 방법
 
