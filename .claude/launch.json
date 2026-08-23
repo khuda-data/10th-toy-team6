@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "recommend-app",
+      "runtimeExecutable": "streamlit",
+      "runtimeArgs": ["run", "app/recommend_app.py", "--server.headless", "true"],
+      "port": 8501
+    }
+  ]
+}
