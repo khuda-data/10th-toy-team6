@@ -60,7 +60,3 @@ docs/                   (실험 결과와 설계 내용을 문서로 정리)
 pip install -r requirements.txt
 cp .env.example .env   # STEAM_API_KEY 채워넣기
 ```
-
-## 참고
-
-`docs/PROJECT_QUALITY.md`에 구조 정리 배경과 처리한 이슈(Steam API Key 하드코딩 노출 등)가 정리되어 있습니다.
